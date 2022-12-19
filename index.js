@@ -1,6 +1,18 @@
 const users = 'https://jsonplaceholder.typicode.com/users'
 
 
+const toggleLoader = () => {
+    const loaderHtml = document.querySelector('#loader')
+    const isHidden = loaderHtml.hasAttribute('hidden')
+    if (isHidden) {
+        loaderHtml.removeAttribute('hidden')
+    } else {
+        loaderHtml.setAttribute('hidden', '')
+    }
+}
+
+toggleLoader()
+
 const userElement = (text) => {
     const liUser = document.createElement('li')
     const liUser_anchor = document.createElement('a')
@@ -26,6 +38,8 @@ const requests = ids.map(id => fetch(`${users}/${id}`))
             })
     }).catch((error) => {
         console.log(error)
+    }).finally(() => {
+        toggleLoader()
     })
 }
 
